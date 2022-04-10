@@ -32,4 +32,12 @@ class UsersService
         return new UserResource(User::where('email', $username)->first());
     }
 
+    /*
+     *
+     */
+    public function sendOTP(UserResource $user)
+    {
+
+    }
+
 }
