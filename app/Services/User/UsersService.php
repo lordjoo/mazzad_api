@@ -12,10 +12,7 @@ class UsersService
     {
         // check if email is already in use
         if (User::where('email', $data['email'])->first()) {
-            return [
-                'status' => false,
-                'message' => 'Email already in use'
-            ];
+            throw new \Exception('Email already in use');
         }
         $user = User::create($data);
         return new UserResource($user);
@@ -30,6 +27,11 @@ class UsersService
     public function getByUsername(string $username): UserResource
     {
         return new UserResource(User::where('email', $username)->first());
+    }
+
+    public function updateUserProfileData(array $data)
+    {
+
     }
 
     /*

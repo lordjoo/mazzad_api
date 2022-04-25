@@ -27,8 +27,12 @@ class RegistrationController extends Controller
 
     public function register(RegisterUserRequest $request)
     {
-        $data = $this->service->registerUser($request->validated());
-        return $this->apiResponse->success("USER_REGISTER_ERROR", $data)->return();
+        try {
+            $data = $this->service->registerUser($request->validated());
+            return $this->apiResponse->success("USER_REGISTERED")->setData($data)->return();
+        } catch (\Exception $e) {
+            return $this->apiResponse->error($e->getMessage())->return();
+        }
 
     }
 

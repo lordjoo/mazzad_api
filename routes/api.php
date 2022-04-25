@@ -18,3 +18,11 @@ Route::group([],function () {
     Route::post("/register",[\App\Http\Controllers\Api\Auth\RegistrationController::class,"register"]);
     Route::post("/oauth/token",[\App\Http\Controllers\Api\Auth\CustomOAuthController::class,"issueToken"]);
 });
+
+Route::group(['middleware' => ['auth:api']], function () {
+    Route::prefix("/me")->group(function () {
+        Route::get("/",[\App\Http\Controllers\Api\MeController::class,"me"]);
+    });
+});
+
+

@@ -34,7 +34,7 @@ class CustomOAuthController extends AccessTokenController
         $token_response = parent::issueToken($request);
         $data = json_decode($token_response->getContent(),true);
         if ($request->getParsedBody()["grant_type"] == "refresh_token") {
-            return $this->apiResponse->success("SUCCESSFULLY_LOGGED_IN")->setData($data)->return();
+            return $this->apiResponse->success("SUCCESSFULLY_REFRESHED_TOKEN")->setData($data)->return();
         }
         $username = $request->getParsedBody()['username'];
         $user = $this->usersService->getByUsername($username);
