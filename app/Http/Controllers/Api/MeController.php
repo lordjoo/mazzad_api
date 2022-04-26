@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateUserProfileRequest;
 use App\Services\User\UsersService;
 
 class MeController extends Controller
@@ -30,9 +31,14 @@ class MeController extends Controller
     }
 
     // TODO
-    public function updateProfile()
+    public function updateProfile(UpdateUserProfileRequest $request)
     {
-
+        try {
+            $data = $this->service->updateUserProfile($request->validated());
+            return $this->apiResponse->success("User data updated!!")->setData($data)->return();
+        }catch (\Exception $e){
+            return $this->apiResponse->error($e->getMessage())->return();
+        }
     }
 
 }
