@@ -13,5 +13,10 @@ class Category extends Model
         "description",
         //"image"
     ];
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+        "id"
+    ];
 
 }
