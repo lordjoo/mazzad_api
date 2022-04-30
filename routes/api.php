@@ -26,6 +26,16 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix("/categories")->group(function(){
         Route::get("/all", [\App\Models\Category::class, "all"]);
     });
+
+    Route::prefix("/auctions")->group(function(){
+        Route::post("/create", [\App\Models\Auction::class, "create"]);
+        Route::get("/get", [\App\Models\Auction::class, "get"]);
+        Route::delete("/delete", [\App\Models\Auction::class, "deletet"]);
+        Route::post("/edit", [\App\Models\Auction::class, "edit"]);
+        Route::get("/myauction", [\App\Models\Auction::class, "myauction"]);
+        Route::get("/update", [\App\Models\Auction::class, "update"]);
+       
+    });
 });
 
 
