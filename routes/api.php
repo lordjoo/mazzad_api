@@ -23,6 +23,9 @@ Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix("/me")->group(function () {
         Route::get("/",[\App\Http\Controllers\Api\MeController::class,"me"]);
     });
+    Route::prefix("/categories")->group(function(){
+        Route::get("/all", [\App\Models\Category::class, "all"]);
+    });
 });
 
 

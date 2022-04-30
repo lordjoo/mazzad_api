@@ -9,7 +9,14 @@ class Category extends Model
 {
     use HasFactory;
     protected $fillable = [
-        "name","description","image"
+        "name",
+        "description",
+        "image"
+    ];
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+        "id"
     ];
 
 }
