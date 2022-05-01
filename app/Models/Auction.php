@@ -10,9 +10,9 @@ class auction extends Model
     use HasFactory;
     protected $fillable = [
         'name',
-        'email',
-        'password',
-        "phone_number",
+        'type',
+        'price',
+        "seller_id",
     ];
 
     
