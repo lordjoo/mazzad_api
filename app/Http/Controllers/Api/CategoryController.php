@@ -28,7 +28,7 @@ class CategoryController extends Controller
     public function all()
     {
         $data = $this->service->getAll();
-        return $this->apiResponse->success(["DATA_HAS_BEEN_FETCHED"], $data)->return();
+        return $this->apiResponse->success("DATA_HAS_BEEN_FETCHED", $data)->return();
     }
 
 }

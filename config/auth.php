@@ -71,7 +71,7 @@ return [
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => \App\Models\admin::class,
+            'model' => \App\Models\Admin::class,
         ],
         // 'users' => [
         //     'driver' => 'database',

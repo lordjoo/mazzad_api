@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Category;
 
+
 class CategoryService
 {
     public function getAll()
@@ -11,3 +12,5 @@ class CategoryService
         return Category::all();
     }
 }
+
+
