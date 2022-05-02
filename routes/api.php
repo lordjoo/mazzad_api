@@ -12,29 +12,38 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
+
+Resource Category
+getAll GET | /category/
+create POST | /category/
+single GET | /category/{id}
+delete DELETE | / category/{id}
+edit PATCH|POST | /category/{id}
 */
 
+// Routes No Need For Auth
 Route::group([],function () {
     Route::post("/register",[\App\Http\Controllers\Api\Auth\RegistrationController::class,"register"]);
     Route::post("/oauth/token",[\App\Http\Controllers\Api\Auth\CustomOAuthController::class,"issueToken"]);
+
+    Route::prefix("/category")->group(function(){
+        Route::get("/", [\App\Http\Controllers\Api\CategoryController::class, "all"]);
+    });
+
+    // TODO: add the rest of auction routes
+
 });
 
+// Routes Need auth
 Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix("/me")->group(function () {
         Route::get("/",[\App\Http\Controllers\Api\MeController::class,"me"]);
     });
-    Route::prefix("/categories")->group(function(){
-        Route::get("/all", [\App\Models\Category::class, "all"]);
-    });
-
-    Route::prefix("/auctions")->group(function(){
-        Route::post("/create", [\App\Models\Auction::class, "create"]);
-        Route::get("/get", [\App\Models\Auction::class, "get"]);
-        Route::delete("/delete", [\App\Models\Auction::class, "deletet"]);
-        Route::post("/edit", [\App\Models\Auction::class, "edit"]);
-        Route::get("/myauction", [\App\Models\Auction::class, "myauction"]);
-        Route::get("/update", [\App\Models\Auction::class, "update"]);
-       
+    Route::prefix("/auction")->group(function(){
+        Route::post("/", [\App\Http\Controllers\Api\AuctionController::class, "create"]);
+        Route::post("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "edit"]);
+        Route::delete("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "delete"]);
+        Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
     });
 });
 

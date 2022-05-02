@@ -5,18 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class auction extends Model
+class Auction extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'type',
-        'price',
-        "seller_id",
-    ];
+    protected $guarded = ['id'];
 
-    
-    public function User(){
-        return $this->hasMany('auction');
+    public function category()
+    {
+
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
     }
 }

@@ -17,7 +17,7 @@ class CreateAuctionsTable extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('description', 255);
-            $table->unsignedBigInteger('seller_id'); // define forgi key  one to many 
+            $table->unsignedBigInteger('seller_id'); // define forgi key  one to many
             // $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
             $table->unsignedBigInteger('catogray_id')->nullable();
             $table->double('final_price')->nullable();
@@ -26,15 +26,14 @@ class CreateAuctionsTable extends Migration
             $table->string('type', 255);
             $table->datetime('start_date');
             $table->datetime('end_date')->nullable();
-            $table->string('keywords');
-            $table->double('increase_amount');
+            $table->string('keywords')->nullable();
             $table->timestamps();
         });
 
         Schema::table('auctions', function (Blueprint $table) {
-            $table->foreign('seller_id')->references('id')->on('users');    
+            $table->foreign('seller_id')->references('id')->on('users');
         });
-        
+
     }
 
     /**

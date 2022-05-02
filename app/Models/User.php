@@ -51,9 +51,9 @@ class User extends Authenticatable
         $this->attributes['password'] = bcrypt($password);
     }
 
-    public function Auction()
+    public function auctions()
     {
-        return $this->belongsTo('User');
+        return $this->hasMany(auction::class);
     }
 }
 
