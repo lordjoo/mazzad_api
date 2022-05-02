@@ -22,6 +22,7 @@ Route::group([],function () {
 Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix("/me")->group(function () {
         Route::get("/",[\App\Http\Controllers\Api\MeController::class,"me"]);
+        Route::post("/updateProfile", [\App\Http\Controllers\Api\MeController::class, "updateProfile"]);
     });
     Route::prefix("/categories")->group(function(){
         Route::get("/all", [\App\Models\Category::class, "all"]);
