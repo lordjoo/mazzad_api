@@ -18,17 +18,23 @@ Class AuctionService
         return Auction::create($data);
     }
 
-    public function edit($id, array $newData)
+    public function editUserAuction($id, array $newData,$user_id)
     {
-        $result = Auction::find($id)->exists();
-        if(!$result){
-            throw new \Exception("INVALID_CATEGORY_ID");
+        $auction = Auction::where('id',$id)->where('user_id',$user_id)->first();
+        if(!$auction) {
+            throw new \Exception('Auction not found');
         }
-        return Auction::where('id', $id)->update($newData);
+        return $auction->update($newData);
     }
 
     public function delete($auctionId)
     {
         Auction::where('id', $auctionId)->delete();
     }
+
+    public function getById($id)
+    {
+        return Auction::findOrFail($id);
+    }
+
 }
