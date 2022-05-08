@@ -46,6 +46,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "delete"]);
         Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
     });
+
+
+    // General Routes
+    Route::post("/upload", [\App\Http\Controllers\Api\General\UploadFileController::class,"upload"]);
 });
 
 

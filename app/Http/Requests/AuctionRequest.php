@@ -31,7 +31,8 @@ class AuctionRequest extends FormRequest
             "initial_price"=>"required",
             "type"=>"required",Rule::in(['scheduled', 'live']),
             "start_date"=>"required",
-            "end_data"=>"nullable",
+            "end_date"=>"required",
+            "images"=>"required|array",
         ];
     }
 }
