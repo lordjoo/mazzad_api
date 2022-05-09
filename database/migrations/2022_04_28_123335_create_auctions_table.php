@@ -19,7 +19,7 @@ class CreateAuctionsTable extends Migration
             $table->string('description', 255);
             $table->unsignedBigInteger('seller_id'); // define forgi key  one to many
             // $table->foreign('seller_id')->references('id')->on('users')->onDelete('cascade');
-            $table->unsignedBigInteger('catogray_id')->nullable();
+            $table->unsignedBigInteger('category_id')->nullable();
             $table->double('final_price')->nullable();
             $table->double('initial_price');
             $table->json('image')->nullable();

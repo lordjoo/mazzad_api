@@ -75,4 +75,14 @@ class AuctionController extends Controller
             return $this->apiResponse->error($exception->getMessage())->return();
         }
     }
+
+    public function getAuctionByCategory($category_id)
+    {
+        try {
+            $categories = $this->service->getAuctionByCategory($category_id);
+            return $this->apiResponse->success("FOUND_THE_AUCTIONS", $categories)->return();
+        }catch (\Exception $exception){
+            return $this->apiResponse->error($exception->getMessage())->return();
+        }
+    }
 }

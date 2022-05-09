@@ -13,6 +13,14 @@ Class AuctionService
         return Auction::all();
     }
 
+    public function getAuctionByCategory($category_id)
+    {
+        if(!(Auction::find($category_id))){
+            throw new \Exception("THERE_IS_NO_AUCTIONS");
+        }
+        return Auction::where('category_id', $category_id)->get();
+    }
+
     public function create(array $data)
     {
         return Auction::create($data);
@@ -20,7 +28,7 @@ Class AuctionService
 
     public function edit($id, array $newData)
     {
-        $result = Auction::find($id)->exists();
+        $result = Auction::find($id);
         if(!$result){
             throw new \Exception("INVALID_CATEGORY_ID");
         }
@@ -31,4 +39,5 @@ Class AuctionService
     {
         Auction::where('id', $auctionId)->delete();
     }
+
 }
