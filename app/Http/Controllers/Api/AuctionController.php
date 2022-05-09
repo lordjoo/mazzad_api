@@ -85,4 +85,16 @@ class AuctionController extends Controller
             return $this->apiResponse->error($exception->getMessage())->return();
         }
     }
+
+    public function searchForAuction(Request $request)
+    {
+        $name = $request->query("search");
+        // http://url/{parms}?search=samsung
+        try {
+            $result = $this->service->searchForAuction($name);
+            return $this->apiResponse->success("FOUND_THE_AUCTIONS", $result)->return();
+        }catch (\Exception $exception){
+            return $this->apiResponse->error($exception->getMessage())->return();
+        }
+    }
 }

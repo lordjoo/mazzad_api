@@ -15,4 +15,9 @@ class Category extends Model
     ];
     protected $hidden = [];
 
+    public function auctions()
+    {
+        return $this->hasMany(Auction::class);
+    }
+
 }
