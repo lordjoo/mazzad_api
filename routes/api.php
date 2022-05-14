@@ -41,10 +41,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("/updateProfile", [\App\Http\Controllers\Api\MeController::class, "updateProfile"]);
     });
     Route::prefix("/auction")->group(function(){
+        Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
         Route::post("/", [\App\Http\Controllers\Api\AuctionController::class, "create"]);
         Route::post("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "edit"]);
         Route::delete("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "delete"]);
-        Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
     });
 
 
