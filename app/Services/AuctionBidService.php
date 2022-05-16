@@ -22,7 +22,8 @@ Class AuctionBidService
             throw new Exception("THE_AUCTION_HAS_BEEN_ENDED");
         }
 
-        $data["type"] = $result['type'];
-        return AuctionBid::create($data);
+        $data["bid_type"] = $result['type'];
+        $bid = AuctionBid::create($data)->refresh();
+        return $bid->toArray() + ["user"=>$bid->user];
     }
 }

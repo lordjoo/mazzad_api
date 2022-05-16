@@ -26,13 +26,13 @@ class AuctionBidController extends Controller
     {
         try {
             $data = [
-                "amount" => $amount,
+                "price" => $amount,
                 "auction_id" => $auction_id,
                 "user_id" => Auth::user()->id
             ];
             $result = $this->service->placeBid($data);
             return $this->apiResponse->success("BID_PLACED!", $result)->return();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception){
             return $this->apiResponse->error($exception->getMessage())->return();
         }
     }

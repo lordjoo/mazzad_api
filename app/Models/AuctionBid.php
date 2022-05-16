@@ -16,6 +16,8 @@ class AuctionBid extends Model
         'price'
     ];
 
+    protected $with = ['user'];
+
     protected $hidden = [];
 
     public function auction()
