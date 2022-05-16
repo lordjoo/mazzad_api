@@ -17,6 +17,7 @@ class CreateAuctionsTable extends Migration
             $table->id();
             $table->string('name', 255);
             $table->string('description', 255);
+
             $table->double('final_price')->nullable();
             $table->double('initial_price');
             $table->json('images')->nullable();

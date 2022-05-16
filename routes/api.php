@@ -45,6 +45,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("/", [\App\Http\Controllers\Api\AuctionController::class, "create"]);
         Route::post("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "edit"]);
         Route::delete("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "delete"]);
+        Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
+        Route::get("/{id}",[\App\Http\Controllers\Api\AuctionController::class, "getAuctionByCategory"]);
+        Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "searchForAuction"]);
+        Route::get("/{auction_id}/bid/{amount}", [\App\Http\Controllers\Api\AuctionBidController::class, "placeBid"]);
     });
 
 

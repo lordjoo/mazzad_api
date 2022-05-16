@@ -3,6 +3,7 @@
 namespace App\Services;
 use App\Http\Resources\User\UserResource;
 use App\Models\Auction;
+use App\Models\Category;
 
 
 Class AuctionService
@@ -13,6 +14,12 @@ Class AuctionService
         return Auction::all();
     }
 
+    public function getAuctionByCategory($category_id)
+    {
+        $category = Category::findOrFail($category_id);
+        return $category->auctions()->get();
+    }
+
     public function create(array $data)
     {
         return Auction::create($data);
@@ -20,10 +27,7 @@ Class AuctionService
 
     public function editUserAuction($id, array $newData,$user_id)
     {
-        $auction = Auction::where('id',$id)->where('user_id',$user_id)->first();
-        if(!$auction) {
-            throw new \Exception('Auction not found');
-        }
+        $result = Auction::findOrFail($id);
         return $auction->update($newData);
     }
 
@@ -32,9 +36,9 @@ Class AuctionService
         Auction::where('id', $auctionId)->delete();
     }
 
-    public function getById($id)
+    public function searchForAuction($name)
     {
-        return Auction::findOrFail($id);
+        return Auction::where('name', 'LIKE', "%".$name."%")->get();
     }
 
 }
