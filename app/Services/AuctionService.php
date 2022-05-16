@@ -25,13 +25,10 @@ Class AuctionService
         return Auction::create($data);
     }
 
-    public function edit($id, array $newData)
+    public function editUserAuction($id, array $newData,$user_id)
     {
-        $result = Auction::find($id);
-        if(!$result){
-            throw new \Exception("INVALID_CATEGORY_ID");
-        }
-        return Auction::where('id', $id)->update($newData);
+        $result = Auction::findOrFail($id);
+        return $auction->update($newData);
     }
 
     public function delete($auctionId)
@@ -43,4 +40,5 @@ Class AuctionService
     {
         return Auction::where('name', 'LIKE', "%".$name."%")->get();
     }
+
 }

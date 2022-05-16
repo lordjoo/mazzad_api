@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Forms\Components\IconPicker;
 use App\Models\Category;
 use Filament\Forms;
 use Filament\Resources\Form;
@@ -21,10 +22,16 @@ class CategoryResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')->required(),
-                Forms\Components\TextInput::make('description')->required(),
-                Forms\Components\FileUpload::make('image')->disk("public")
-                // ...
+                Forms\Components\Card::make()->schema([
+                    Forms\Components\TextInput::make("name")->required()->label("Name"),
+                    Forms\Components\Textarea::make("description")->label("Description"),
+                ])->columnSpan(2),
+                Forms\Components\Card::make()->schema([
+                    IconPicker::make("icon")->label("Icon"),
+                ])->columnSpan(1),
+            ])->columns([
+                "sm"=>3,
+                "lg"=>null
             ]);
     }
 

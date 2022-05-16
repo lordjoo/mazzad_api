@@ -4,9 +4,11 @@ namespace App\Services\User;
 
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
+use mysql_xdevapi\Exception;
 
 class UsersService
 {
+
 
     public function registerUser(array $data)
     {
@@ -18,6 +20,20 @@ class UsersService
         return new UserResource($user);
     }
 
+    public function updateUserProfile(array $data)
+    {
+        // check if the provided email in the request is different from the user email ?
+        // this means the user is trying to update his email
+        // at this point I have to check that the email the user is trying to set is unique
+        // if it's being used then I shall throw an exception with a proper message
+
+        if(auth()->user()->email == $data["email"]){
+            throw new \Exception("This Email already in use!!");
+        }
+        $new_user = auth()->user()->update($data);
+        return new UserResource(auth()->user());
+    }
+
     /**
      * Get a single user by its username
      *
@@ -27,11 +43,6 @@ class UsersService
     public function getByUsername(string $username): UserResource
     {
         return new UserResource(User::where('email', $username)->first());
-    }
-
-    public function updateUserProfileData(array $data)
-    {
-
     }
 
     /*

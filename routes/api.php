@@ -38,8 +38,10 @@ Route::group([],function () {
 Route::group(['middleware' => ['auth:api']], function () {
     Route::prefix("/me")->group(function () {
         Route::get("/",[\App\Http\Controllers\Api\MeController::class,"me"]);
+        Route::post("/updateProfile", [\App\Http\Controllers\Api\MeController::class, "updateProfile"]);
     });
     Route::prefix("/auction")->group(function(){
+        Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
         Route::post("/", [\App\Http\Controllers\Api\AuctionController::class, "create"]);
         Route::post("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "edit"]);
         Route::delete("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "delete"]);
@@ -48,6 +50,10 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "searchForAuction"]);
         Route::get("/{auction_id}/bid/{amount}", [\App\Http\Controllers\Api\AuctionBidController::class, "placeBid"]);
     });
+
+
+    // General Routes
+    Route::post("/upload", [\App\Http\Controllers\Api\General\UploadFileController::class,"upload"]);
 });
 
 

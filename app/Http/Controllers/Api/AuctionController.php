@@ -35,7 +35,7 @@ class AuctionController extends Controller
     public function create(AuctionRequest $request)
     {
         $data = $request->validated();
-        $data["seller_id"] = auth()->user()->id;
+        $data["user_id"] = auth()->user()->id;
         try {
             $auction = $this->service->create($data);
             return $this->apiResponse->success("AUCTION_CREATED_SUCCESSFULLY!")->setData($auction)->return();
@@ -49,7 +49,7 @@ class AuctionController extends Controller
     {
         $newData = $request->validated();
         try {
-            $newData = $this->service->edit($id, $newData);
+            $newData = $this->service->editUserAuction($id, $newData,auth()->user()->id);
             return $this->apiResponse->success("AUCTION_UPDATED_SUCCESSFULLY")->setData($newData)->return();
         }catch (\Exception $exception){
             return $this->apiResponse->error($exception->getMessage())->return();
