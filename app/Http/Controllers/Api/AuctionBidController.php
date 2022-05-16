@@ -37,4 +37,13 @@ class AuctionBidController extends Controller
         }
     }
 
+    public function getBids($auction_id)
+    {
+        try {
+            $data = $this->service->getBids($auction_id);
+            return $this->apiResponse->success("BIDS_FETCHED_SUCCESSFULLY", $data)->return();
+        }catch (\Exception $exception){
+            return $this->apiResponse->error($exception->getMessage())->return();
+        }
+    }
 }

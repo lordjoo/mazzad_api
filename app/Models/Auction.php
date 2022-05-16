@@ -23,7 +23,7 @@ class Auction extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function auctionBid()
+    public function auctionBids()
     {
         return $this->hasMany(AuctionBid::class);
     }

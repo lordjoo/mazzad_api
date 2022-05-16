@@ -26,4 +26,22 @@ Class AuctionBidService
         $bid = AuctionBid::create($data)->refresh();
         return $bid->toArray() + ["user"=>$bid->user];
     }
+
+    public function getBids($auction_id)
+    {
+        /*
+         * after we have the auction_id we will check if the auction
+         * is already exists in the Auction model
+         * then we will check if the auction type is live then using the relation
+         * that in the Auction model to get auctionBids
+         * and if the type isn't live we will return the maximum price
+         */
+        $result = Auction::findOrFail($auction_id);
+        if($result["type"] == "live"){
+            return $result->auctionBids()->get();
+        }
+        return [
+            "max" => $result->auctionBids()->max("price")
+        ];
+    }
 }
