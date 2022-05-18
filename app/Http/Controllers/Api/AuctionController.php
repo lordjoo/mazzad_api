@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\AuctionRequest;
-use Illuminate\Http\Request;
-use App\Services\User\UsersService;
 use App\Services\AuctionService;
+use Illuminate\Http\Request;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 
@@ -20,6 +19,7 @@ class AuctionController extends Controller
      * @var ApiResponse
      */
     private $apiResponse;
+
     private AuctionService $service;
 
     public function __construct(ApiResponse $apiResponse)
@@ -69,7 +69,7 @@ class AuctionController extends Controller
     public function get()
     {
         try {
-            $data = $this->service->get();
+            $data = $this->service->paginate();
             return $this->apiResponse->success("DATA_HAS_BEEN_FETCHED", $data)->return();
         }catch (\Exception $exception){
             return $this->apiResponse->error($exception->getMessage())->return();

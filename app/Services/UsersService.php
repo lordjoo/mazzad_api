@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Services;
 
 use App\Http\Resources\User\UserResource;
 use App\Models\User;
-use mysql_xdevapi\Exception;
 
 class UsersService
 {
@@ -45,12 +44,46 @@ class UsersService
         return new UserResource(User::where('email', $username)->first());
     }
 
-    /*
-     *
-     */
-    public function sendOTP(UserResource $user)
-    {
 
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function generateOTP(User $user): User
+    {
+        $user->otp = rand(10000, 99999);
+        $user->otp_expiry = now()->addMinutes(5);
+        $user->save();
+        return $user;
     }
+
+    public function resetPassword(User $user, mixed $password)
+    {
+        $user->password = $password;
+        // reset the otp and otp_epiry
+        $user->otp = null;
+        $user->otp_expiry = null;
+        $user->save();
+    }
+
+    public function checkOTP(User $user, $otp)
+    {
+        if ($user->otp_expiry < now()) {
+            throw new \Exception('OTP expired');
+        } elseif ($user->otp != $otp) {
+            throw new \Exception('Invalid OTP');
+        }
+        return true;
+    }
+
+    public function getByEmail($email)
+    {
+        $user = User::where('email', $email)->first();
+        if (! $user) {
+            throw new \Exception('User not found');
+        }
+        return $user;
+    }
+
 
 }

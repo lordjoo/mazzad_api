@@ -13,6 +13,11 @@ Class AuctionService
         return Auction::all();
     }
 
+    public function paginate($limit = 15)
+    {
+        return Auction::paginate($limit);
+    }
+
     public function create(array $data)
     {
         return Auction::create($data);

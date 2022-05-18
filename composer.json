@@ -5,7 +5,7 @@
     "keywords": ["framework", "laravel"],
     "license": "MIT",
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^7.4|^8.1",
         "filament/filament": "^2.11",
         "filament/forms": "^2.0",
         "fruitcake/laravel-cors": "^2.0",
