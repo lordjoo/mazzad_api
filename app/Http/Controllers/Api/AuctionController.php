@@ -66,10 +66,11 @@ class AuctionController extends Controller
         }
     }
 
-    public function get()
+    public function get(Request $request)
     {
         try {
-            $data = $this->service->paginate();
+            $limit = $request->query("limit") ?? 15;
+            $data = $this->service->paginate($limit);
             return $this->apiResponse->success("DATA_HAS_BEEN_FETCHED", $data)->return();
         }catch (\Exception $exception){
             return $this->apiResponse->error($exception->getMessage())->return();
