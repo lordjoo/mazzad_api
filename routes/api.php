@@ -35,6 +35,7 @@ Route::group([],function () {
         Route::post("/verify-otp", [\App\Http\Controllers\Api\Auth\ResetPasswordController::class,"verifyOtp"]);
     });
     Route::get("/auction/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
+    Route::get("/auction/search", [\App\Http\Controllers\Api\AuctionController::class, "search"]);
 
     // TODO: add the rest of auction routes
 
@@ -47,7 +48,6 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::post("/updateProfile", [\App\Http\Controllers\Api\MeController::class, "updateProfile"]);
     });
     Route::prefix("/auction")->group(function(){
-        Route::get("/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
         Route::post("/", [\App\Http\Controllers\Api\AuctionController::class, "create"]);
         Route::post("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "edit"]);
         Route::delete("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "delete"]);

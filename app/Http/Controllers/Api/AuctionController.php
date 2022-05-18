@@ -70,10 +70,23 @@ class AuctionController extends Controller
     {
         try {
             $limit = $request->query("limit") ?? 15;
-            $data = $this->service->paginate($limit);
+            $data = $this->service->get($request->query())->cursorPaginate($limit);
             return $this->apiResponse->success("DATA_HAS_BEEN_FETCHED", $data)->return();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception){
             return $this->apiResponse->error($exception->getMessage())->return();
         }
     }
+
+    public function search(Request $request)
+    {
+        try {
+            $limit = $request->query("limit") ?? 15;
+            $search = $request->query("search");
+            $data = $this->service->search($search, $limit);
+            return $this->apiResponse->success("DATA_HAS_BEEN_FETCHED", $data)->return();
+        } catch (\Exception $exception){
+            return $this->apiResponse->error($exception->getMessage())->return();
+        }
+    }
+
 }
