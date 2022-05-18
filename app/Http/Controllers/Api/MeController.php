@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateUserProfileRequest;
-use App\Services\User\UsersService;
+use App\Services\UsersService;
 
 class MeController extends Controller
 {

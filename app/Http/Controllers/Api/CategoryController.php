@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
-use App\Services\User\UsersService;
 
 class CategoryController extends Controller
 {
