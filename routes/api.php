@@ -53,7 +53,7 @@ Route::group(['middleware' => ['auth:api']], function () {
         Route::delete("/{id}", [\App\Http\Controllers\Api\AuctionController::class, "delete"]);
     });
 
-
+    Route::post("/recordAction",[\App\Http\Controllers\Api\UserActionController::class,"recordAction"]);
     // General Routes
     Route::post("/upload", [\App\Http\Controllers\Api\General\UploadFileController::class,"upload"]);
 });
