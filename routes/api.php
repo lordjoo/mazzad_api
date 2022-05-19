@@ -36,7 +36,7 @@ Route::group([],function () {
     });
     Route::get("/auction/", [\App\Http\Controllers\Api\AuctionController::class, "get"]);
     Route::get("/auction/search", [\App\Http\Controllers\Api\AuctionController::class, "search"]);
-
+    Route::get("/slider/",[\App\Http\Controllers\Api\SliderController::class,"get"]);
     // TODO: add the rest of auction routes
 
 });
