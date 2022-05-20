@@ -12,6 +12,7 @@ class Auction extends Model
 
     protected $casts = [
         "images"=> "array",
+        "keywords"=> "array",
     ];
 
     public function category()

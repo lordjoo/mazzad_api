@@ -16,15 +16,14 @@ class CreateAuctionsTable extends Migration
         Schema::create('auctions', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->string('description', 255);
-
+            $table->longText('description', 255);
             $table->double('final_price')->nullable();
             $table->double('initial_price');
             $table->json('images')->nullable();
             $table->string('type', 255);
             $table->datetime('start_date');
             $table->datetime('end_date');
-            $table->string('keywords')->nullable();
+            $table->json('keywords')->nullable();
 
             $table->foreignId('category_id')->constrained();
             $table->foreignId('user_id')->constrained();

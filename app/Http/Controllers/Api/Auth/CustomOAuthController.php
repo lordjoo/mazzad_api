@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Helpers\ApiResponse;
-use App\Services\User\UsersService;
-use Laravel\Passport\Http\Controllers\AccessTokenController;
+use App\Services\UsersService;use Laravel\Passport\Http\Controllers\AccessTokenController;
 use Laravel\Passport\TokenRepository;
 use Lcobucci\JWT\Parser as JwtParser;
 use League\OAuth2\Server\AuthorizationServer;

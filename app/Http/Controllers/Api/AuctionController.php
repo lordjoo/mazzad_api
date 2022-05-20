@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\AuctionRequest;
-use Illuminate\Http\Request;
-use App\Services\User\UsersService;
 use App\Services\AuctionService;
+use Illuminate\Http\Request;
 use App\Helpers\ApiResponse;
 use App\Http\Controllers\Controller;
 
@@ -20,6 +19,7 @@ class AuctionController extends Controller
      * @var ApiResponse
      */
     private $apiResponse;
+
     private AuctionService $service;
 
     public function __construct(ApiResponse $apiResponse)
@@ -66,12 +66,25 @@ class AuctionController extends Controller
         }
     }
 
-    public function get()
+    public function get(Request $request)
     {
         try {
-            $data = $this->service->get();
+            $limit = $request->query("limit") ?? 15;
+            $data = $this->service->get($request->query())->cursorPaginate($limit);
             return $this->apiResponse->success("DATA_HAS_BEEN_FETCHED", $data)->return();
-        }catch (\Exception $exception){
+        } catch (\Exception $exception){
+            return $this->apiResponse->error($exception->getMessage())->return();
+        }
+    }
+
+    public function search(Request $request)
+    {
+        try {
+            $limit = $request->query("limit") ?? 15;
+            $search = $request->query("search");
+            $data = $this->service->search($search, $limit);
+            return $this->apiResponse->success("DATA_HAS_BEEN_FETCHED", $data)->return();
+        } catch (\Exception $exception){
             return $this->apiResponse->error($exception->getMessage())->return();
         }
     }
@@ -97,4 +110,5 @@ class AuctionController extends Controller
             return $this->apiResponse->error($exception->getMessage())->return();
         }
     }
+
 }

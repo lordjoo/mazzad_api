@@ -9,9 +9,26 @@ use App\Models\Category;
 Class AuctionService
 {
 
-    public function get()
+    public function get($query = [])
     {
-        return Auction::all();
+        $searchable = [
+            'name',
+            'start_date',
+            'end_date',
+            "type"
+        ];
+        $auctions = Auction::query();
+        foreach ($searchable as $key) {
+            if (isset($query[$key]) && $query[$key] != '') {
+                $auctions = $auctions->where($key,$query[$key]);
+            }
+        }
+        return $auctions;
+    }
+
+    public function paginate($limit = 15)
+    {
+        return Auction::cursorPaginate($limit);
     }
 
     public function getAuctionByCategory($category_id)
@@ -40,5 +57,14 @@ Class AuctionService
     {
         return Auction::where('name', 'LIKE', "%".$name."%")->get();
     }
+
+    public function search($query,$limit = 15)
+    {
+        return Auction::where("name","LIKE","%$query%")
+            ->orWhere("description","LIKE","%$query%")
+            ->orWhere("keywords","LIKE","%$query%")
+            ->cursorPaginate();
+    }
+
 
 }

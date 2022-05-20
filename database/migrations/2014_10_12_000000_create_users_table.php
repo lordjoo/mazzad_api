@@ -21,7 +21,12 @@ class CreateUsersTable extends Migration
             $table->string("phone_number")->unique();
 
             $table->string("otp")->nullable();
+            $table->string("otp_expiry")->nullable();
             $table->timestamp('email_verified_at')->nullable();
+
+            $table->boolean("can_add_auction")->default(true);
+            $table->double("bidding_rate")->default(0);
+            $table->boolean("is_admin")->default(true);
 
             $table->rememberToken();
             $table->timestamps();
